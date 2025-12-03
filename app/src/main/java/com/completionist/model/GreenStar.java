@@ -1,7 +1,6 @@
 package com.completionist.model;
 
-// green power stars - hidden collectibles that unlock planet of trials
-// there are 3 of them: battlerock, dusty dune, and buoy base
+// 3 green stars that unlock planet of trials
 public class GreenStar extends Star {
 
     public GreenStar(String id, String name, UnlockCondition unlockCondition) {

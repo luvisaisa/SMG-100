@@ -1,6 +1,6 @@
 package com.completionist.model;
 
-// regular mission stars - the main objectives
+// regular mission stars
 public class MainStar extends Star {
 
     public MainStar(String id, String name) {

@@ -1,7 +1,6 @@
 package com.completionist.model;
 
-// prankster comet stars - harder versions of regular missions
-// these are hidden until unlock conditions are met
+// comet challenge stars (speed runs, etc)
 public class CometStar extends Star {
 
     public CometStar(String id, String name, UnlockCondition unlockCondition) {

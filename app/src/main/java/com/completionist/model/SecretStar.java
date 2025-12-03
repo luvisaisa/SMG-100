@@ -1,6 +1,6 @@
 package com.completionist.model;
 
-// secret bonus stars - hidden by default until you find them
+// hidden bonus stars
 public class SecretStar extends Star {
 
     public SecretStar(String id, String name, UnlockCondition unlockCondition) {
