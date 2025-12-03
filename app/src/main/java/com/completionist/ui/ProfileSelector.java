@@ -14,8 +14,7 @@ import java.util.List;
 import static com.completionist.ui.ConsoleColors.*;
 import static com.completionist.ui.ConsoleUtils.*;
 
-// profile selection screen at startup
-// pick an existing profile or make a new one
+// startup screen - pick or create profile
 public class ProfileSelector {
     private final StorageService storage;
     private final Terminal terminal;

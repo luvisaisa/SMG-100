@@ -12,8 +12,7 @@ import java.io.IOException;
 import static com.completionist.ui.ConsoleUtils.*;
 import static com.completionist.ui.ConsoleColors.*;
 
-// main ui controller - handles navigating through domes/galaxies/stars
-// supports both mario and luigi modes with separate tracking
+// handles all the menu navigation and display stuff
 public class ConsoleUI {
     private final Game game;
     private final PlayerProfile player;
@@ -78,9 +77,9 @@ public class ConsoleUI {
         player.updateLastPlayed();
     }
 
-    // ===== CHARACTER MODE HELPERS =====
+    // -- character mode stuff --
 
-    // gets the star id with character prefix (luigi stars have "luigi-" prefix)
+    // star IDs get prefixed with "luigi-" in luigi mode
     private String getEffectiveStarId(String starId) {
         return player.getCharacterMode().getStarPrefix() + starId;
     }

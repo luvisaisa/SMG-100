@@ -4,7 +4,7 @@ import com.completionist.model.*;
 import com.completionist.progress.*;
 import static com.completionist.ui.ConsoleColors.*;
 
-// helper methods for console ui formatting
+// ui helpers - formatting, colors, etc
 public class ConsoleUtils {
     private static final int PROGRESS_BAR_LENGTH = 10;
 
