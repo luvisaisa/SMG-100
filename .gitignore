@@ -19,5 +19,8 @@ bin/
 .DS_Store
 Thumbs.db
 
+# Zip files
+*.zip
+
 # Application data (player progress files)
 data/
