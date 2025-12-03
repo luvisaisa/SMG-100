@@ -2,20 +2,19 @@ package com.completionist.model;
 
 import java.util.List;
 
-// builds the whole super mario galaxy game structure
-// all 121 stars organized into domes and galaxies
+// all 121 stars... this took forever to type out
 public class GameFactory {
 
     // creates the full SMG game with everything
     public static Game createSuperMarioGalaxy() {
-        // ===== TUTORIAL / GATEWAY =====
+        // gateway (tutorial area)
         Galaxy gateway = createGatewayGalaxy();
 
         Dome tutorial = new Dome("tutorial", "Gateway",
             List.of(gateway));
-        // gateway is always unlocked (starting area)
+        // terrace is always unlocked (starting area)
 
-        // ===== TERRACE DOME =====
+        // terrace dome
         Galaxy goodEgg = createGoodEggGalaxy();
         Galaxy honeyhive = createHoneyhiveGalaxy();
         Galaxy loopdeeloop = createLoopdeeloopGalaxy();
@@ -27,7 +26,7 @@ public class GameFactory {
             List.of(goodEgg, honeyhive, loopdeeloop, flipswitch, bowserJrRobot, sweetSweet));
         // terrace is always unlocked (first dome)
 
-        // ===== FOUNTAIN DOME =====
+        // fountain dome - unlocks at 7 stars
         Galaxy spaceJunk = createSpaceJunkGalaxy();
         Galaxy battlerock = createBattlerockGalaxy();
         Galaxy rollingGreen = createRollingGreenGalaxy();
@@ -39,7 +38,7 @@ public class GameFactory {
             List.of(spaceJunk, battlerock, rollingGreen, hurryScurry, bowserStar, slingPod));
         fountain.setUnlockCondition(new TotalStarsCondition(7));
 
-        // ===== KITCHEN DOME =====
+        // kitchen
         Galaxy beachBowl = createBeachBowlGalaxy();
         Galaxy ghostly = createGhostlyGalaxy();
         Galaxy bubbleBreeze = createBubbleBreezeGalaxy();
@@ -51,7 +50,7 @@ public class GameFactory {
             List.of(beachBowl, ghostly, bubbleBreeze, buoyBase, bowserJrAirship, dripDrop));
         kitchen.setUnlockCondition(new TotalStarsCondition(18));
 
-        // ===== BEDROOM DOME =====
+        // bedroom
         Galaxy gustyGarden = createGustyGardenGalaxy();
         Galaxy freezeflame = createFreezeflameGalaxy();
         Galaxy dustyDune = createDustyDuneGalaxy();
@@ -63,7 +62,7 @@ public class GameFactory {
             List.of(gustyGarden, freezeflame, dustyDune, honeyclimb, bowserDarkMatter, bigmouth));
         bedroom.setUnlockCondition(new TotalStarsCondition(33));
 
-        // ===== ENGINE ROOM DOME =====
+        // engine room
         Galaxy goldLeaf = createGoldLeafGalaxy();
         Galaxy seaSlide = createSeaSlideGalaxy();
         Galaxy toyTime = createToyTimeGalaxy();
@@ -75,7 +74,7 @@ public class GameFactory {
             List.of(goldLeaf, seaSlide, toyTime, bonefin, bowserJrLava, sandSpiral));
         engineRoom.setUnlockCondition(new TotalStarsCondition(45));
 
-        // ===== GARDEN DOME =====
+        // garden
         Galaxy deepDark = createDeepDarkGalaxy();
         Galaxy dreadnought = createDreadnoughtGalaxy();
         Galaxy meltyMolten = createMeltyMoltenGalaxy();
@@ -88,17 +87,16 @@ public class GameFactory {
             List.of(deepDark, dreadnought, meltyMolten, matterSplatter, snowCap, boosBoneyard, bowserGalaxyReactor));
         garden.setUnlockCondition(new TotalStarsCondition(50));
 
-        // ===== PLANET OF TRIALS =====
+        // planet of trials - need all 3 green stars
         Galaxy rollingGizmo = createRollingGizmoGalaxy();
         Galaxy bubbleBlast = createBubbleBlastGalaxy();
         Galaxy loopdeeswoop = createLoopdeeswoopGalaxy();
 
         Dome planetOfTrials = new Dome("planet-of-trials", "Planet of Trials",
             List.of(rollingGizmo, bubbleBlast, loopdeeswoop));
-        // unlocks after getting all 3 green stars
         planetOfTrials.setUnlockCondition(new GreenStarsUnlockCondition());
 
-        // ===== GRAND FINALE =====
+        // grand finale - the 121st star!
         Galaxy grandFinale = createGrandFinaleGalaxy();
 
         Dome grandFinaleDome = new Dome("grand-finale", "Grand Finale Galaxy",
@@ -110,7 +108,7 @@ public class GameFactory {
             List.of(tutorial, terrace, fountain, kitchen, bedroom, engineRoom, garden, planetOfTrials, grandFinaleDome));
     }
 
-    // ===== TUTORIAL / GATEWAY GALAXIES =====
+    /* ---------- individual galaxy builders ---------- */
 
     private static Galaxy createGatewayGalaxy() {
         return new Galaxy("gateway", "Gateway Galaxy", List.of(
@@ -125,10 +123,9 @@ public class GameFactory {
         ), new TotalStarsCondition(50));
     }
 
-    // ===== TERRACE DOME GALAXIES =====
+    // terrace
 
     private static Galaxy createGoodEggGalaxy() {
-        // Main star IDs for comet unlock condition (requires 13+ total stars AND all main stars collected)
         var mainStarIds = List.of("good-egg-dino-piranha", "good-egg-snack", "good-egg-kaliente");
         var cometCondition = new CometUnlockCondition(mainStarIds);
         var purpleCometCondition = new PurpleCometUnlockCondition();
@@ -183,7 +180,7 @@ public class GameFactory {
         ), new TotalStarsCondition(7));
     }
 
-    // ===== FOUNTAIN DOME GALAXIES =====
+    // fountain
 
     private static Galaxy createSpaceJunkGalaxy() {
         var mainStarIds = List.of("space-junk-pull-star", "space-junk-kamella", "space-junk-tarantox");
@@ -238,10 +235,10 @@ public class GameFactory {
     private static Galaxy createSlingPodGalaxy() {
         return new Galaxy("sling-pod", "Sling Pod Galaxy", List.of(
             new MainStar("sling-pod-sticky-situation", "A Very Sticky Situation")
-        ), new TotalStarsCondition(12));
+        ), new TotalStarsCondition(15));
     }
 
-    // ===== KITCHEN DOME GALAXIES =====
+    // kitchen
 
     private static Galaxy createBeachBowlGalaxy() {
         var mainStarIds = List.of("beach-bowl-sunken-treasure", "beach-bowl-swim-test", "beach-bowl-secret-cavern", "beach-bowl-wall-jumping");
@@ -302,10 +299,10 @@ public class GameFactory {
     private static Galaxy createBigmouthGalaxy() {
         return new Galaxy("bigmouth", "Bigmouth Galaxy", List.of(
             new MainStar("bigmouth-gold-bait", "Bigmouth's Gold Bait")
-        ), new TotalStarsCondition(33));
+        ), new TotalStarsCondition(25));
     }
 
-    // ===== BEDROOM DOME GALAXIES =====
+    // bedroom
 
     private static Galaxy createGustyGardenGalaxy() {
         var mainStarIds = List.of("gusty-garden-bunnies", "gusty-garden-major-burrow", "gusty-garden-gravity-scramble", "gusty-garden-golden-chomp");
@@ -363,10 +360,10 @@ public class GameFactory {
     private static Galaxy createBowserDarkMatterPlantGalaxy() {
         return new Galaxy("bowser-dark-matter", "Bowser's Dark Matter Plant", List.of(
             new MainStar("bowser-dark-matter-darkness", "Darkness on the Horizon")
-        ), new TotalStarsCondition(33));
+        ), new TotalStarsCondition(40));
     }
 
-    // ===== ENGINE ROOM DOME GALAXIES =====
+    // engine room
 
     private static Galaxy createGoldLeafGalaxy() {
         var mainStarIds = List.of("gold-leaf-star-bunnies", "gold-leaf-cataquack", "gold-leaf-rains-pours", "gold-leaf-big-tree");
@@ -428,10 +425,10 @@ public class GameFactory {
     private static Galaxy createSandSpiralGalaxy() {
         return new Galaxy("sand-spiral", "Sand Spiral Galaxy", List.of(
             new MainStar("sand-spiral-snack", "Choosing a Favorite Snack")
-        ), new TotalStarsCondition(45));
+        ), new TotalStarsCondition(50));
     }
 
-    // ===== GARDEN DOME GALAXIES =====
+    // garden
 
     private static Galaxy createDeepDarkGalaxy() {
         var mainStarIds = List.of("deep-dark-boo-box", "deep-dark-ghost-ship", "deep-dark-guppy-lake", "deep-dark-bubble-blastoff");
@@ -496,7 +493,7 @@ public class GameFactory {
         ), new TotalStarsCondition(60));
     }
 
-    // ===== PLANET OF TRIALS GALAXIES =====
+    // planet of trials (unlocked by green stars)
 
     private static Galaxy createRollingGizmoGalaxy() {
         return new Galaxy("rolling-gizmo", "Rolling Gizmo Galaxy", List.of(
@@ -516,7 +513,7 @@ public class GameFactory {
         ), new TotalStarsCondition(58));
     }
 
-    // ===== GRAND FINALE GALAXY =====
+    // the big one
 
     private static Galaxy createGrandFinaleGalaxy() {
         return new Galaxy("grand-finale", "Grand Finale Galaxy", List.of(
