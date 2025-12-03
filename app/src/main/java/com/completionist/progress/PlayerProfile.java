@@ -10,8 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-// the player's save file basically
-// has progress for all games plus settings
+// save file - has progress for all games
 public class PlayerProfile {
     private final String playerId;
     private String displayName;

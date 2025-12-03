@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// tracks all star progress for one game
-// knows when you started and last played
+// star collection progress for one game
 public class GameProgress {
     private final String gameId;
     private final Map<String, StarProgress> starProgress;
