@@ -3,8 +3,7 @@ package com.completionist.model;
 import com.completionist.progress.GameProgress;
 import java.util.List;
 
-// a galaxy holds a bunch of stars
-// these get grouped into domes
+// holds a list of stars
 public class Galaxy implements ICompletionTrackable {
     private final String id;
     private final String name;
@@ -15,7 +14,7 @@ public class Galaxy implements ICompletionTrackable {
     public Galaxy(String id, String name, List<Star> stars, UnlockCondition unlockCondition) {
         this.id = id;
         this.name = name;
-        this.stars = List.copyOf(stars);  // make it immutable
+        this.stars = List.copyOf(stars);
         this.unlockCondition = unlockCondition;
     }
 
@@ -23,42 +22,19 @@ public class Galaxy implements ICompletionTrackable {
         this(id, name, stars, null);
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public List<Star> getStars() { return stars; }
+    public Dome getDome() { return dome; }
+    public UnlockCondition getUnlockCondition() { return unlockCondition; }
+    void setDome(Dome dome) { this.dome = dome; }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Star> getStars() {
-        return stars;  // Already immutable
-    }
-
-    public Dome getDome() {
-        return dome;
-    }
-
-    public UnlockCondition getUnlockCondition() {
-        return unlockCondition;
-    }
-
-    // checks if player can access this galaxy
     public boolean isUnlocked(GameProgress progress) {
         return unlockCondition == null || unlockCondition.isMet(progress);
     }
 
-    // links this galaxy to its parent dome (called internally)
-    void setDome(Dome dome) {
-        this.dome = dome;
-    }
-
-    // find a star in this galaxy by id
     public Star getStarById(String starId) {
-        return stars.stream()
-                .filter(s -> s.getId().equals(starId))
-                .findFirst()
-                .orElse(null);
+        return stars.stream().filter(s -> s.getId().equals(starId)).findFirst().orElse(null);
     }
 
     @Override

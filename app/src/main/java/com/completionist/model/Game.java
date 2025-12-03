@@ -3,8 +3,7 @@ package com.completionist.model;
 import com.completionist.progress.GameProgress;
 import java.util.List;
 
-// the whole game - contains everything
-// game -> domes -> galaxies -> stars
+// top level - holds all domes
 public class Game implements ICompletionTrackable {
     private final String id;
     private final String name;
@@ -13,35 +12,18 @@ public class Game implements ICompletionTrackable {
     public Game(String id, String name, List<Dome> domes) {
         this.id = id;
         this.name = name;
-        this.domes = List.copyOf(domes);  // immutable
-
-        // link each dome to this game
-        for (Dome dome : this.domes) {
-            dome.setGame(this);
-        }
+        this.domes = List.copyOf(domes);
+        for (Dome dome : this.domes) dome.setGame(this);
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public List<Dome> getDomes() { return domes; }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Dome> getDomes() {
-        return domes;  // Already immutable
-    }
-
-    // find a dome by id
     public Dome getDomeById(String domeId) {
-        return domes.stream()
-                .filter(d -> d.getId().equals(domeId))
-                .findFirst()
-                .orElse(null);
+        return domes.stream().filter(d -> d.getId().equals(domeId)).findFirst().orElse(null);
     }
 
-    // search for a star anywhere in the game
     public Star findStarById(String starId) {
         for (Dome dome : domes) {
             for (Galaxy galaxy : dome.getGalaxies()) {
@@ -54,7 +36,6 @@ public class Game implements ICompletionTrackable {
         return null;
     }
 
-    // find which galaxy contains a star
     public Galaxy findGalaxyByStarId(String starId) {
         for (Dome dome : domes) {
             for (Galaxy galaxy : dome.getGalaxies()) {
