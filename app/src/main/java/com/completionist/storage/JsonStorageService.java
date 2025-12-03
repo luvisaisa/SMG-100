@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-// saves profiles as json files
-// stores them in ./data/profiles/{playerId}.json
+// saves to ./data/profiles/{id}.json
 public class JsonStorageService implements StorageService {
     private final Path profilesDir;
     private final ObjectMapper mapper;
@@ -42,7 +41,6 @@ public class JsonStorageService implements StorageService {
         mapper.registerModule(new JavaTimeModule());
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        // ignore extra fields when loading (for computed getters)
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         return mapper;
     }
