@@ -261,7 +261,7 @@ public class ConsoleUI {
         for (Dome dome : allDomes) {
             if (dome.getId().equals("grand-finale")) {
                 // Only show Grand Finale if unlock condition is met
-                if (dome.getUnlockCondition() != null && dome.getUnlockCondition().isMet(progress)) {
+                if (dome.getUnlockCondition() != null && isModeUnlockConditionMet(dome.getUnlockCondition())) {
                     domes.add(dome);
                 }
                 // In spoiler mode, show it but locked
