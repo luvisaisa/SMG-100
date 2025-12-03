@@ -16,27 +16,12 @@ public abstract class Star {
         this.unlockCondition = unlockCondition;
     }
 
-    // gets the star id
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public boolean isHiddenByDefault() { return hiddenByDefault; }
+    public UnlockCondition getUnlockCondition() { return unlockCondition; }
 
-    // gets the display name
-    public String getName() {
-        return name;
-    }
-
-    // is this a secret star that starts hidden?
-    public boolean isHiddenByDefault() {
-        return hiddenByDefault;
-    }
-
-    // get the unlock condition (or null if always available)
-    public UnlockCondition getUnlockCondition() {
-        return unlockCondition;
-    }
-
-    // subclasses implement this to show the right emoji
+    // each star type has its own icon
     public abstract String getTypeIcon();
 
     @Override
