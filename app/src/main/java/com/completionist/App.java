@@ -5,7 +5,6 @@ import com.completionist.progress.*;
 import com.completionist.storage.*;
 import com.completionist.ui.*;
 
-// main entry point - kicks off the whole thing
 public class App {
 
     public static void main(String[] args) {
@@ -117,11 +116,9 @@ public class App {
         System.out.println("✓ Manually revealed: Luigi on the Roof");
         System.out.println();
 
-        System.out.println("=== Phase 2 Complete! ===");
-        System.out.println("✓ StarProgress (collected, notes, difficulty, revealed)");
-        System.out.println("✓ GameProgress (lazy creation, aggregates stars)");
-        System.out.println("✓ PlayerProfile (multi-game support, spoilers setting)");
-        System.out.println("✓ ICompletionTrackable integration with progress");
-        System.out.println("✓ Hidden star reveal mechanic");
+        System.out.println("=== done! ===");
+        System.out.println("star tracking works");
+        System.out.println("profiles save correctly");
+        System.out.println("hidden stars can be revealed");
     }
 }
