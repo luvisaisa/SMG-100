@@ -22,31 +22,31 @@ class AppTest {
         progress = player.getOrCreateGameProgress(smg.getId());
     }
 
-    // Phase 1 Tests
-    @Test void gameFactoryCreatesSuperMarioGalaxy() {
+    // basic tests
+    @Test void smgFactoryWorks() {
         assertNotNull(smg, "Game should not be null");
         assertEquals("super-mario-galaxy", smg.getId());
         assertEquals("Super Mario Galaxy", smg.getName());
-        assertEquals(9, smg.getDomes().size(), "Should have 9 domes (Gateway, Terrace, Fountain, Kitchen, Bedroom, Engine Room, Garden, Planet of Trials, Grand Finale)");
+        assertEquals(9, smg.getDomes().size()); // gateway + 8 domes
     }
 
-    @Test void goodEggGalaxyHasSixStars() {
+    @Test void goodEggHas6Stars() {
         Dome terrace = smg.getDomeById("terrace");
         assertNotNull(terrace, "Terrace dome should exist");
 
         Galaxy goodEgg = terrace.getGalaxyById("good-egg");
         assertNotNull(goodEgg, "Good Egg Galaxy should exist");
-        assertEquals(6, goodEgg.getStars().size(), "Good Egg should have 6 stars");
+        assertEquals(6, goodEgg.getStars().size());
     }
 
-    @Test void starTypesHaveCorrectIcons() {
+    @Test void starIcons() {
         assertEquals("⭐", new MainStar("test", "Test").getTypeIcon());
         assertEquals("🌟", new SecretStar("test", "Test").getTypeIcon());
         assertEquals("☄️", new CometStar("test", "Test").getTypeIcon());
         assertEquals("🌠", new GrandStar("test", "Test").getTypeIcon());
     }
 
-    @Test void findStarByIdWorks() {
+    @Test void findStar() {
         Star star = smg.findStarById("good-egg-dino-piranha");
 
         assertNotNull(star, "Star should be found");
@@ -54,13 +54,13 @@ class AppTest {
         assertInstanceOf(MainStar.class, star);
     }
 
-    // Phase 2 Tests
-    @Test void newProfileStartsWithZeroStars() {
+    // progress tracking
+    @Test void newProfile_zeroStars() {
         assertEquals(0, player.getTotalStarsCollected());
         assertEquals(0, progress.getCollectedCount());
     }
 
-    @Test void markingStarCollectedUpdatesCount() {
+    @Test void collectStar_updatesCount() {
         progress.getStarProgress("good-egg-dino-piranha").markCollected();
 
         assertTrue(progress.isStarCollected("good-egg-dino-piranha"));
@@ -68,7 +68,7 @@ class AppTest {
         assertEquals(1, player.getTotalStarsCollected());
     }
 
-    @Test void galaxyCompletionPercentageCalculatesCorrectly() {
+    @Test void galaxyCompletion() {
         Galaxy goodEgg = smg.getDomeById("terrace").getGalaxyById("good-egg");
 
         // Collect 2 out of 6 stars
@@ -80,7 +80,7 @@ class AppTest {
         assertEquals(33.33, goodEgg.getCompletionPercentage(progress), 0.01);
     }
 
-    @Test void notesAndDifficultyPersist() {
+    @Test void notesAndDifficulty() {
         StarProgress sp = progress.getStarProgress("good-egg-dino-piranha");
         sp.setNote("Test note");
         sp.setDifficultyRating(3);
@@ -90,7 +90,7 @@ class AppTest {
         assertEquals("★★★☆☆", sp.getDifficultyStars());
     }
 
-    @Test void uncollectingStarReducesCount() {
+    @Test void uncollectStar() {
         StarProgress sp = progress.getStarProgress("good-egg-dino-piranha");
         sp.markCollected();
         assertEquals(1, progress.getCollectedCount());
@@ -100,7 +100,7 @@ class AppTest {
         assertFalse(progress.isStarCollected("good-egg-dino-piranha"));
     }
 
-    @Test void difficultyRatingValidation() {
+    @Test void difficultyRating_validation() {
         StarProgress sp = progress.getStarProgress("good-egg-dino-piranha");
 
         assertThrows(IllegalArgumentException.class, () -> sp.setDifficultyRating(0));
@@ -110,7 +110,7 @@ class AppTest {
         assertDoesNotThrow(() -> sp.setDifficultyRating(null));
     }
 
-    @Test void hiddenStarsCanBeRevealed() {
+    @Test void revealHiddenStar() {
         assertFalse(progress.isStarRevealed("good-egg-luigi"));
 
         progress.getStarProgress("good-egg-luigi").setRevealed(true);
@@ -118,7 +118,7 @@ class AppTest {
         assertTrue(progress.isStarRevealed("good-egg-luigi"));
     }
 
-    @Test void spoilersSettingWorks() {
+    @Test void spoilersSetting() {
         assertFalse(player.isSpoilersEnabled());
 
         player.setSpoilersEnabled(true);
@@ -126,15 +126,15 @@ class AppTest {
         assertTrue(player.isSpoilersEnabled());
     }
 
-    @Test void completionPercentageWithNullProgress() {
+    @Test void completionWithNullProgress() {
         Galaxy goodEgg = smg.getDomeById("terrace").getGalaxyById("good-egg");
 
         assertEquals(0, goodEgg.getCompletedItems(null));
         assertEquals(0.0, goodEgg.getCompletionPercentage(null));
     }
 
-    // Storage Tests
-    @Test void profileSaveAndLoadRoundTrip(@TempDir Path tempDir) throws StorageException {
+    // storage
+    @Test void saveAndLoad(@TempDir Path tempDir) throws StorageException {
         // Create storage service with temp directory
         StorageService storage = new JsonStorageService(tempDir);
         
